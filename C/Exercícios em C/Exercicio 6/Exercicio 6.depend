@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1681843950 source:c:\users\kronus\documents\programmation study\lógica de programação\exercícios em c\exercicio 6\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
