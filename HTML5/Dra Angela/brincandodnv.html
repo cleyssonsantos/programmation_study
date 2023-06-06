@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: red;
+            height: 400px;
+            width: 600px;
+        }
+
+        @media (max-width: 610px) {
+            div {
+                width: 400px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 415px) {
+            div {
+                width: 200px;
+                height: 100px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 7px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Teste</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora voluptatibus reiciendis facilis quasi excepturi voluptate aut itaque? Quasi porro placeat impedit sed numquam! Asperiores amet exercitationem architecto magnam quisquam nobis!</p>
+    </div>
+</body>
+</html>
