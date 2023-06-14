@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexBox Sizing</title>
+    <style>
+        h1 {
+            display: inline-block;
+            justify-content: center;
+            font-size: larger;
+            color: white;
+            background-color: darkcyan;
+        }
+
+        h1 > span {
+            display: inline;
+        }
+
+        #container-principal {
+            background-color: darkcyan;
+            height: 600px;
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+
+        #container-principal > * {
+            margin: 0.5em;
+        }
+
+        #bloco-1 {
+            background-color: black;
+            height: 100px;
+            width: 200px;
+            flex-basis: 200px;
+        }
+
+        #bloco-2 {
+            background-color: green;
+            height: 100px;
+            width: 200px;
+            flex-basis: 200px;
+            flex-shrink: 0;
+        }
+
+        #bloco-3 {
+            background-color: violet;
+            height: 100px;
+            width: 200px;
+            flex-basis: 400px;
+            flex-shrink: 0;
+        }
+
+        .verde {
+            color: green;
+        }
+
+        .preto {
+            color: black;
+        }
+
+        .violeta {
+            color: violet
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Objetivo: Deixar bloco <span class="preto">preto</span> e <span class="verde">verde</span> com 200px de largura, e bloco <span class="violeta">violeta</span> com 400px, e na hora de diminuir a tela, o bloco <span class="verde">verde</span> e <span class="violeta">violeta</span> não ser responsivo, e o bloco <span class="preto">preto</span> sim.</h1>
+    <div id="container-principal">
+        <div id="bloco-1"> Lorem ipsum dolor ipsu minest.</div>
+        <div id="bloco-2"></div>
+        <div id="bloco-3"></div>
+    </div>
+</body>
+</html>
