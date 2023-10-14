@@ -60,3 +60,14 @@
     (- valor-bruto aplicacao-do-desconto)))
 
 (valor-descontadoo 500)
+
+
+(defn valor-descontado-com-if
+  [valor-bruto]
+  (if (> valor-bruto 100)
+    (let [taxa-de-desconto (/ 10 100)
+          desconto (* valor-bruto taxa-de-desconto)]
+      (- valor-bruto desconto))
+    (println "O valor bruto não é maior que 100, então não se aplica o desconto. Valor bruto:" valor-bruto)))
+
+(valor-descontado-com-if 50)

@@ -57,3 +57,16 @@ clj꞉teste.core꞉> 
 clj꞉teste.core꞉> 
 450N
 clj꞉teste.core꞉> 
+#'teste.core/valor-descontado-com-if
+clj꞉teste.core꞉> 
+135N
+clj꞉teste.core꞉> 
+O valor bruto não é maior que 100, então 
+              não se aplica o desconto. Valor bruto: 50
+nil
+clj꞉teste.core꞉> 
+#'teste.core/valor-descontado-com-if
+clj꞉teste.core꞉> 
+O valor bruto não é maior que 100, então não se aplica o desconto. Valor bruto: 50
+nil
+clj꞉teste.core꞉> 
