@@ -71,3 +71,16 @@
     (println "O valor bruto não é maior que 100, então não se aplica o desconto. Valor bruto:" valor-bruto)))
 
 (valor-descontado-com-if 50)
+
+(defn maior-que-dez? [x]
+  (> x 10))
+
+(println (maior-que-dez? 5)) ; Imprime false
+(println (maior-que-dez? 15)) ; Imprime true
+
+(defn imprimir-mensagem [x]
+  (when (maior-que-dez? x)
+    (println "O número é maior que 10!")))
+
+(imprimir-mensagem 5)  ; Nada é impresso
+(imprimir-mensagem 15) ; Imprime "O número é maior que 10!"
