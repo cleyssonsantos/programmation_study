@@ -36,3 +36,19 @@
   (* valor-bruto (- 1 0.10)))
 
 (valor-descontado 100)
+
+(defn valor-descontado-let
+  "Retorna o desconto de 10% do valor bruto"
+  [valor-bruto]
+  (let [desconto 0.10]
+    (println "Calculando o desconto de" desconto)
+    (* valor-bruto (- 1 desconto))))
+
+(valor-descontado-let 923)
+
+(defn valor-descontado-new
+  [valor-bruto]
+  (let [desconto (/ 10 100)] ;Símbolos e não VARIÁVEIS
+    (* valor-bruto (- 1 desconto))))
+
+(valor-descontado 100) 
