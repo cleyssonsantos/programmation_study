@@ -52,3 +52,11 @@
     (* valor-bruto (- 1 desconto))))
 
 (valor-descontado 100) 
+
+(defn valor-descontadoo
+  [valor-bruto]
+  (let [taxa-de-desconto (/ 10 100)
+        aplicacao-do-desconto (* valor-bruto taxa-de-desconto)]
+    (- valor-bruto aplicacao-do-desconto)))
+
+(valor-descontadoo 500)

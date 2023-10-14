@@ -43,3 +43,17 @@ clj꞉teste.core꞉> 
 clj꞉teste.core꞉> 
 90.0
 clj꞉teste.core꞉> 
+; Syntax error compiling at (core.clj:60:5).
+; Unable to resolve symbol: aplicacao-do-desconto in this context
+clj꞉teste.core꞉> 
+#'teste.core/valor-descontadoo
+clj꞉teste.core꞉> 
+10N
+nil
+clj꞉teste.core꞉> 
+#'teste.core/valor-descontadoo
+clj꞉teste.core꞉> 
+90N
+clj꞉teste.core꞉> 
+450N
+clj꞉teste.core꞉> 
