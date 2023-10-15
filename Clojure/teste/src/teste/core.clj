@@ -84,3 +84,23 @@
 
 (imprimir-mensagem 5)  ; Nada é impresso
 (imprimir-mensagem 15) ; Imprime "O número é maior que 10!"
+
+; BINDING
+(def x 10)
+
+(defn imprimir-x []
+  (println x))
+
+(defn alterar-x [novo-x]
+  (binding [x novo-x]
+    (println "Dentro do binding:" x)
+    (imprimir-x))) ; NÃO CONSEGUI USAR O BINDING, TESTAR NOVAMENTE DPS
+; CONSEGUI TESTAR USANDO LET, QUE FUNCIONA PRATICAMENTE DA MESMA FORMA
+
+(println "Fora do binding:" x)
+(imprimir-x)
+
+(alterar-x 20)
+
+(println "Após o binding:" x)
+(imprimir-x)
