@@ -15,3 +15,23 @@
 (doseq [item nova-lista]
   (println item))
 
+(class lista)
+(class nova-lista)
+(get lista 4)
+(update lista 4 inc) ;Msm fn porem "nativa"
+(update lista 4 #(+ 1 %)) ;Update recebendo fn # LAMBDA
+
+(println (range 11))
+(println (filter even? (range 11)))
+
+(def rangee [1 2 3 4 5])
+
+(println (reduce + rangee))
+
+(defn minha-soma
+  [valor-1 valor-2]
+  (println "Somando" valor-1 valor-2)
+  (+ valor-1 valor-2))
+
+(println (reduce minha-soma rangee))
+(println (reduce minha-soma 0 rangee))
