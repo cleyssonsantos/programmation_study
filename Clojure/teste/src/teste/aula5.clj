@@ -14,11 +14,13 @@
 (println "As chaves são" (keys estoque))
 (println "Os valores são" (vals estoque))
 
-; Não é comum usar str como chave.
+; Não é comum usar str como chave do Array Map.
 
 (def estoque-novo {:mochila 10
                    :camiseta 5})
 
-(assoc estoque :cadeira 3)
+(println (assoc estoque :cadeira 3))
 
-(update estoque-novo :mochila inc)
+(println (update estoque-novo :mochila inc))
+
+(println (dissoc estoque-novo :mochila))
