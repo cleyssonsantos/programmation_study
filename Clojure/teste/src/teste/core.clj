@@ -100,7 +100,5 @@
 (println "Fora do binding:" x)
 (imprimir-x)
 
-(alterar-x 20)
-
 (println "Após o binding:" x)
 (imprimir-x)
