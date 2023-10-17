@@ -1,0 +1,39 @@
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+{:mochila {:quantidade 2, :preco 80}, :camiseta {:quantidade 1, :preco 2}}
+nil
+clj꞉teste.aula5꞉> 
+; Syntax error (ArityException) compiling at (form-init15186023540674184958.clj:34:17).
+; Wrong number of args (2) passed to: clojure.core/assoc--5401
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+{:mochila {:quantidade 2, :preco 80}, :camiseta {:quantidade 1, :preco 2}, :chaveiro {:quantidade 1, :preco 10}}
+nil
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+; Syntax error compiling at (aula5.clj:36:10).
+; Unable to resolve symbol: pedido in this context
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+; Syntax error compiling at (aula5.clj:36:10).
+; Unable to resolve symbol: pedido in this context
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+{:quantidade 2, :preco 80}
+nil
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+#'teste.aula5/pedido-map
+clj꞉teste.aula5꞉> 
+2
+nil
+clj꞉teste.aula5꞉> 
