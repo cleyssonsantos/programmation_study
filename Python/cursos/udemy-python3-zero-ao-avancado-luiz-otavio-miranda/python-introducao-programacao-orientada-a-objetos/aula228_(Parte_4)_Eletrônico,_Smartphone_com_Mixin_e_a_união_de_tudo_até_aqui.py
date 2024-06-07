@@ -1,0 +1,1 @@
+#Arquivo aula228_(Parte_4)_Eletrônico,_Smartphone_com_Mixin_e_a_união_de_tudo_até_aqui.py criado com sucesso.

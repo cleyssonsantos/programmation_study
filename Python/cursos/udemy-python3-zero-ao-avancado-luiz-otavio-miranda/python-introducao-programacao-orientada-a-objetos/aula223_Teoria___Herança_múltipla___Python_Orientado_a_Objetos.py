@@ -1,0 +1,1 @@
+#Arquivo aula223_Teoria___Herança_múltipla___Python_Orientado_a_Objetos.py criado com sucesso.
