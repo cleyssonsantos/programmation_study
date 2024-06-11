@@ -1,1 +1,0 @@
-#Arquivo aula224_Herança_múltipla___Python_Orientado_a_Objetos.py criado com sucesso.
