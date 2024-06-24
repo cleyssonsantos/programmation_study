@@ -1,1 +1,0 @@
-#Arquivo aula230_abstractmethod_para_qualquer_método_já_decorado_(property_e_setter).py criado com sucesso.
