@@ -1,1 +1,0 @@
-#Arquivo aula229_Classes_abstratas___Abstract_Base_Class_(abc)___Python_Orientado_a_Objetos.py criado com sucesso.
