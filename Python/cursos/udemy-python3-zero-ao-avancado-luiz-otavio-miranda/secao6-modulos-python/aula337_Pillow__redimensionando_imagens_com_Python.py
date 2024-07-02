@@ -1,0 +1,1 @@
+#Arquivo aula337_Pillow__redimensionando_imagens_com_Python.py criado com sucesso.

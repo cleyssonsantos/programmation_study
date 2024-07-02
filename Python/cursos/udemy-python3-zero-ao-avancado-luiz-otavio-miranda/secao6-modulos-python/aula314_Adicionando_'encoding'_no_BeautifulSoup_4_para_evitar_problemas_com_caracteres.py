@@ -1,0 +1,1 @@
+#Arquivo aula314_Adicionando_'encoding'_no_BeautifulSoup_4_para_evitar_problemas_com_caracteres.py criado com sucesso.

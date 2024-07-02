@@ -1,0 +1,1 @@
+#Arquivo aula313_(parte_2)_Web_Scraping_com_Python_usando_requests_e_bs4_BeautifulSoup.py criado com sucesso.

@@ -1,0 +1,1 @@
+#Arquivo aula320_TEORIA__subprocess_para_executando_programas_e_comandos_externos.py criado com sucesso.

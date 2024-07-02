@@ -1,0 +1,1 @@
+#Arquivo aula332_Dica__remover_regras_de_tipos_Unknown_do_linter_do_VS_Code.py criado com sucesso.

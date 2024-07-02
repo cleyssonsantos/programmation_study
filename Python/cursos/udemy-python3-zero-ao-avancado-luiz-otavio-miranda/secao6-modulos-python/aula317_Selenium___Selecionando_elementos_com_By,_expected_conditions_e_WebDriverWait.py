@@ -1,0 +1,1 @@
+#Arquivo aula317_Selenium___Selecionando_elementos_com_By,_expected_conditions_e_WebDriverWait.py criado com sucesso.
