@@ -1,0 +1,10 @@
+docker stop <id_container> -> para o container em execução
+
+docker start <id_container> -> inicia o container parado
+
+docker rm <id_container> -> remove o meu container parado, também da pra remover pelo NAME do
+container.
+
+docker rm <id_container> -f   -> remove na FORÇA o container, mesmo em execução.
+
+=================================================================================

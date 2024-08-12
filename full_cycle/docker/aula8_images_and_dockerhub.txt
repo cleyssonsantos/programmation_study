@@ -1,0 +1,28 @@
+Entendendo imagens e DockerHub.
+
+Quando baixamos uma imagem, baixamos do dockerhub. Esse cara é o container registry do docker.
+
+Nós podemos ter nosso próprio container registry também, a amazon exemplo tem seu proprio container
+registry.
+A mesma coisa com o google platform.
+
+Quando ouvir que usamos uma imagem passando apenas o caminho dela normal, é necessario saber que As
+imagens estão vindo do DockerHub, o proprio container registry do Docker.
+
+==============================================================================
+Como saber as imagens que estão no meu computador?
+
+docker images
+``` kronus@kronus:~/Documents/programmation_study$ docker images
+REPOSITORY                      TAG                     IMAGE ID       CREATED         SIZE
+api-jovian-mvp-api-jovian-mvp   latest                  5db6926dc958   5 days ago      970MB
+<none>                          <none>                  9b5866051410   5 days ago      970MB
+<none>                          <none>                  d16c517c92ae   5 days ago      969MB
+<none>                          <none>                  ad41dfc137cd   6 days ago      969MB
+<none>                          <none>                  0c4eba688d9f   6 days ago      970MB ```
+
+
+E pra remover a imagem?
+
+docker rmi <repository:tag> ex:  docker rmi api-jovian-mvp-api-jovian-mvp:latest
+==================================================================================

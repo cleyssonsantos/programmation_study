@@ -1,0 +1,49 @@
+docker ps -> Mostra os containers atuais rodando na maquina
+
+docker run hello-world  -> Roda um container simples
+Resultado no terminal:
+Unable to find image 'hello-world:latest' locally (Essa mensagem informa que não encontrou essa
+imagem localmente e como consequencia temos a linha abaixo:)
+latest: Pulling from library/hello-world
+c1ec31eb5944: Pull complete 
+Digest: sha256:1408fec50309afee38f3535383f5b09419e6dc0925bc69891e79d84cc4cdcec6
+Status: Downloaded newer image for hello-world:latest
+
+Essas informações mostra que ele está baixando a imagem do Container Registry pra nossa maquina.
+O codigo sha256 mostra a integridade dessa imagem.
+Por fim, o status informando que baixamos uma nova imagem "hello-world" pra nossa maquina.
+
+-----------------------
+O resto do resultado do run hello-world, ele mostra isso:
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+
+Esse foi o processo executado pelo hello-world.
+******************************************************************************
+
+Mesmo executando essa imagem teste com docker run, se der um docker ps depois disso não
+vamos encontrar nenhum container de pé. Isso porque na imagem vamos ter geralmente O
+ENTRYPOINT ou COMMAND (tem diferença entre eles), e o ENTRYPOINT chama um executável, e vai
+executar um processo pra gente, pode ser um shell script, um binario, etc. 
+
+Nesse exemplo que usamos, ele imprimiu as informações na tela, e depois morreu. Porque morreu?
+Porque o ENTRYPOINT, aquele arquivo executado só fazia isso, executava e não segurava o processo.

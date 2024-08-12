@@ -1,0 +1,61 @@
+docker run nginx -> Vai baixar os pedaços que precisa pra usar o ngnix
+
+kronus@kronus:~/Documents/programmation_study$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES
+8300f5099e74   nginx     "/docker-entrypoint.…"   18 seconds ago   Up 14 seconds   80/tcp    sharp_cray
+
+Veja o command que tem um docker entrypoint alguma coisa... E a porta está com a 80 exposta.
+Significa que esse container, fica com a porta 80 livre pra se conectar por ela. Porque? Porque ele
+é um webserver, e esse cara tem a porta 80 aberta. O processo está rodando, então meu terminal vai ficar
+parado no processo. Se der um ctrl + d, eu derrubo o processo.
+
+Se eu digito no navegador: http://localhost:80     -> não acontece nada, porque?
+Uma coisa é minha maquina "docker host" rodar os processos do docker, a outra coisa é o container que está rodando.
+Pro container, internamente, ele é uma maquina que tem um kernel que roda o nginx, pra esse container e processo, ele está
+com a porta 80 ativa, mas isso não significa que eu consigo acessar a porta daquele container.
+
+Se estivesse outro container rodando (ubuntu por exemplo) e tentasse acessar a nossa porta do container do nginx, esse
+cara conseguiria. Mas nós não, porque somos o host, e não estamos na REDE DOCKER naquele momento. 
+
+E como fazer pra caso eu queira acessar a porta do nginx ????
+O docker nos dá um mecanismo pra conseguir fazer isso, e isso funciona com um apontamento, um redirecionamento de porta. Ex:
+
+docker run -p 8080:80
+
+-p é a porta que eu quero publicar a porta que eu quero apontar do meu computador "MAQUINA QUE ESTA EXECUTANDO O DOCKER DOCKER CLI",
+não é o docker host, o docker host pode estar em outro local.
+
+8080:80     -> eu quero dizer que quando eu acessar a porta da minha maquina 8080, o docker vai redirecionar para porta 80
+do meu container.
+=========================================================================================================
+
+docker run -p 8080:80 nginx 
+
+[A imagem subiu]
+
+kronus@kronus:~/Documents/programmation_study$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+bfc9a79924a8   nginx     "/docker-entrypoint.…"   31 seconds ago   Up 30 seconds   0.0.0.0:8080->80/tcp, :::8080->80/tcp   busy_kepler
+
+Veja que a porta mudou.
+
+Indo no meu navegador e acessando: http://localhost:8080/ eu consigo acessar o server nginx:
+
+```Welcome to nginx!
+If you see this page, the nginx web server is successfully installed and working. Further configuration is required.
+
+For online documentation and support please refer to nginx.org.
+Commercial support is available at nginx.com.
+
+Thank you for using nginx.```
+
+Log do container nginx:
+172.17.0.1 - - [11/Aug/2024:14:42:22 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" "-"
+
+Esse ip 172.17.0.1 que está sendo acessado, não é do localhost da minha maquina, é o ip que está fazendo essa maquina ser
+acessada la dentro do container.
+=========================================================================================================
+
+docker run -d -p 8080:80 nginx    -> Roda o container sem travar meu terminal, pra assim deixar ele liberado. O -d significa
+detached , estou desentaxando meu terminal do container. 
+

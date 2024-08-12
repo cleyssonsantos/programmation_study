@@ -1,0 +1,45 @@
+docker run -d --name nginx nginx  -> eu subo a imagem dando um nome pra ele.
+
+==========================================================
+Como acessar os files do meu container, com o container já rodando?
+
+docker exec nginx ls -> vai rodar o comando ls dentro do nosso container chamado nginx.
+
+docker exec nginx bash -> ele entra e sai do bash do meu container, e pra rodar ele pra 
+conseguir mandar comandos, como fazer? No modo interativo: -it
+
+docker exec -it nginx bash
+
+```kronus@kronus:~/Documents/programmation_study$ docker exec -it nginx bash
+root@2b4d1ab1229f:/# ```
+
+==========================================================
+Quero acessar o diretorio que nginx é servido:
+cd /usr/share/nginx/html
+
+root@2b4d1ab1229f:/# cd /usr/share/nginx/html
+root@2b4d1ab1229f:/usr/share/nginx/html# ls
+50x.html  index.html
+root@2b4d1ab1229f:/usr/share/nginx/html# vim
+bash: vim: command not found
+==================================================================
+Instalando o VIM pra editar o arquivo index.html
+
+Pra isso, precisa dar um: apt-get update
+Depois: apt-get install vim
+
+Pra editar o file index.html basta rodar:
+vim index.html
+
+==================================================================
+Pra usar o vim, editar no caso, porque abre no modo leitura, precisa apertar
+a letra  " I " pra dar um insert.
+
+pra sair da edição aperta ESC, e pra salvar precisa colocar :w
+Pra sair :q
+
+Pra salvar e sair, :wq
+
+Pra sair sem salvar, :q!
+==================================================================
+Tudo que gravarmos no container será PERDIDO, mas existe UMA EXCEÇÃO, na próxima aula veremos.

@@ -1,0 +1,14 @@
+A ideia agora é garantir que mesmo ao derrubar o container matando, e subindo, não
+perdemos nosso conteudo, e pra isso eu preciso de um arquivo html como proposto na pasta,
+pra montar o volume no container ao subir o container. Comando:
+
+docker run -d -p 80:80 --name nginx -v ~/Documents/programmation_study/full_cycle/docker/aula6/html/:/usr/share/nginx/html
+(O -v é pra montar o volume, aonde na primeira parte eu coloco onde estará o meu arquivo
+que vou querer substituir, e depois do : onde está o arquivo dentro do container pra ser "trocado")
+
+===========================================================================
+Esse comando -v é um comando mais antigo do docker, hoje em dia o comando é mount, ex:
+docker run -d --name nginx -p 80:80 --mount type=bind,source="$(pwd)"/full_cycle/docker/aula6/html,target=/usr/share/nginx/html nginx
+Obs: o pwd é apenas um atalho pra pegar o diretorio atual
+
+Obs: O comando -v se a pasta nao existir, ele cria. O mount da erro informando que a pasta nao existe

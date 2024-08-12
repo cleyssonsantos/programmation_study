@@ -1,0 +1,57 @@
+docker run -it ubuntu bash
+
+docker run (executar algo)
+
+-it (parametros, é como se fosse -i -t: -i é modo interativo, vai manter ali pra mim o STDIN ativo
+pra manter o processo rodando, pra interagir contra a maquina. Quando isso acontece, ele meio que atacha
+o meu terminal com o container. Já o -t significa o TTY, pra poder digitar coisas no terminal. Uma coisa
+é eu prender o terminal, outra coisa é eu poder rodar comandos, e o TTY faz isso.)
+
+ubuntu (nome da imagem, e como nao tem nada ali ":", ele parte do principio que é latest, ex:
+ubuntu:latest)
+
+bash (comando executado no container depois que a gente baixar/subir a imagem)
+
+================================================================================
+Rodando o comando no terminal
+kronus@kronus:~/Documents/programmation_study$ docker run -it ubuntu:latest bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+9c704ecd0c69: Pull complete 
+Digest: sha256:2e863c44b718727c860746568e1d54afd13b2fa71b160f5cd9058fc436217b30
+Status: Downloaded newer image for ubuntu:latest
+root@c53656f4a2a4:/# 
+
+Ele entra no modo de comandos
+root@c53656f4a2a4:/# ls
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@c53656f4a2a4:/# uname -a
+Linux c53656f4a2a4 6.5.0-44-generic #44~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Jun 18 14:36:16 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+root@c53656f4a2a4:/# 
+================================================================================
+
+Esse container está rodando ainda, o processo está ativo. Se criar um novo terminal e dar um docker ps,
+encontramos o processo ativo:
+kronus@kronus:~/Documents/programmation_study$ docker ps
+CONTAINER ID   IMAGE           COMMAND   CREATED              STATUS              PORTS     NAMES
+c53656f4a2a4   ubuntu:latest   "bash"    About a minute ago   Up About a minute             optimistic_northcutt
+
+================================================================================
+Pra subir um container que já morreu, eu posso pegar o NAME do container, e fazer:
+docker start <name_container>
+
+Exemplo do container de pé acima, caso matássemos o processo:
+
+docker start optimistic_northcutt
+
+Ele sobe o container, mas se não tiver nada para segura-lo, ele sobe e morre.
+Da mesma forma que podemos dar um start, podemos dar um stop também no processo.
+
+================================================================================
+docker run -it --rm ubuntu:latest bash
+
+Eu entro normal no ubuntu, e quando eu saio do ubuntu, ele deleta a imagem do histórico, rodando
+na minha maquina só que inativo, eu dou um " --rm " , isso significa que na hora que eu fechar 
+o processo, ele ja remove o container.
+
+================================================================================
