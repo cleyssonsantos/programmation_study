@@ -1,0 +1,18 @@
+docker run --rm -it -v $(pwd)/:/usr/src/app -p 3000:3000 node:15 bash
+
+Dessa forma se eu entrar na pasta usr src app, e dar um touch oi, ele vai criar na pasta ali na minha maquina 
+local, porque tudo que eu escrever na minha maquina vai pro container, e tudo que escrever no container vai pra
+minha maquina. Por conta do COMPARTILHAMENTO DE VOLUMES!
+
+
+Aqui eu criei tudo pra rodar o node na porta 3000. MAS se eu quiser gerar o Dockerfile da imagem
+que eu criei? Tem como.
+
+
+
+
+Pode ter casos em ter 2 Dockerfile, sendo o Dockerfile pra desenvolvimento, e o Dockerfile.prod pra
+buildar, então como fazer o build no Dockerfile.prod ?
+
+docker build -t cleyssonsantosestudo/hello-express . -f Dockerfile.prod   (Ele vai pegar todos os 
+files desenvolvidos e buildar no Dockerfile.prod)
