@@ -1,0 +1,14 @@
+Todo aqui .sh que tem isso no final: exec "$@"
+Significa que ele vai aceitar os parametros do que foi passado depois desse file docker-entrypoint.sh
+
+```
+root@b000ea6f87b1:/# ./docker-entrypoint.sh echo "Hello"
+Hello
+```
+
+
+
+https://hub.docker.com/_/nginx
+
+Dockerfile do nginx:
+https://github.com/nginxinc/docker-nginx/blob/a6f7d140744f8b15ff4314b8718b3f022efc7f43/mainline/debian/Dockerfile
