@@ -1,0 +1,48 @@
+Diferença entre entrypoint e CMD
+
+docker ps -a -q -> trás só os id dos meus containers
+
+docker rm $(docker ps -a -q) -f     -> Pega todos os containers ativos e inativos e vai remover
+
+```
+FROM ubuntu:latest
+
+CMD [ "echo", "Hello World" ]
+```
+
+Ao ser executado, mostra o Hello World na tela:
+```
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula11_entrypoint_vs_cmd$ docker run --rm cleyssonsantosestudo/hello:latest
+Hello World
+```
+
+=======================================================
+
+O Dockerfile estando daquele jeito acima, se eu rodar esse comando: 
+docker run --rm cleyssonsantosestudo/hello:latest echo "oi"
+
+Ele vai sobrescrever o que estava no CMD pelo oi. Tudo que eu colocar depois da minha imagem,
+vai substituir o meu CMD no Dockerfile.
+
+==========================================================
+Como garantir que vou ter um comando fixo e um comando variável (que possa ser substituido)?
+R: Com ENTRYPOINT. Vamos lá:
+
+Meu Dockerfile
+```
+FROM ubuntu:latest
+
+ENTRYPOINT [ "echo", "Hello" ]
+
+CMD [ "World" ]
+```
+
+docker run --rm cleyssonsantosestudo/hello:latest
+Hello World
+
+--------------------
+Mas se eu colocar um comando pra subir a imagem, exemplo: 
+docker run --rm cleyssonsantosestudo/hello:latest "Cleysson"
+```Hello Cleysson```
+
+O entrypoint é fixo, mas o CMD não.

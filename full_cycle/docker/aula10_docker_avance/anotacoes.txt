@@ -1,0 +1,8 @@
+Avançando com Dockerfile
+
+WORKDIR -> diretorio que vms trabalhar dentro do container, é como se quando ele
+começasse a criar a imagem, ele criasse uma pasta la dentro do container.
+
+COPY html /usr/share/nginx   -> copia a pasta html local para a pasta informada dentro
+do container
+
