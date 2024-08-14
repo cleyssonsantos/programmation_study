@@ -1,0 +1,29 @@
+Até aqui as imagens criadas foram feitas na minha maquina local, mas tem como subir no Dockerhub.
+
+==========================================================
+Como subir a imagem ao Dockerhub? 
+1. Faça login:
+---- docker login
+
+docker push cleyssonsantosestudo/nginx-fullcycle
+
+``` 
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula13_publish_image_in_Dockerhub$ docker push cleyssonsantosestudo/nginx-fullcycle
+Using default tag: latest
+The push refers to repository [docker.io/cleyssonsantosestudo/nginx-fullcycle]
+328164dbc1db: Pushed 
+60e72fbb314e: Mounted from library/nginx 
+599e8de62018: Mounted from library/nginx 
+09581b9299a2: Mounted from library/nginx 
+a39383416a22: Mounted from library/nginx 
+a6355e7844d5: Mounted from library/nginx 
+fcfa12460e7d: Mounted from library/nginx 
+e0781bc8667f: Mounted from library/nginx 
+latest: digest: sha256:7dca902a7082f15468077cf2a9048bb4f9f6c14795f3e1021a6dcc68ccdadc96 size: 1985
+```
+
+Minha imagem está disponivel aqui:
+https://hub.docker.com/repository/docker/cleyssonsantosestudo/nginx-fullcycle/general
+
+Se não tiver nenhum download dessa imagem por 90 dias, ele remove a imagem automaticamente.
+Cuidado pra sempre manter ela ativa.

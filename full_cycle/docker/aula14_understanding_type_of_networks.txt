@@ -1,0 +1,25 @@
+Temos alguns tipos de network recomendado que saibamos que existe, principalmente quando vai fazer
+algo do proprio docker se comunicar na mesma rede do meu computador, por exemplo.
+
+Tipos de Network:
+1. bridge (mais comum - criado por padrão se não informado o type da rede, aqui um container
+se comunica com outro)
+
+2. host     (bem importante, ele mescla a network do docker com a network do HOST do docker.
+Vamos imaginar que minha maquina é o HOST do docker onde estou rodando, e vamos imaginar que
+estou rodando uma aplicação PHP na porta 80. Quando eu crio uma network do tipo host, e subo
+meu container nessa mesma network, o container consegue acessar minha propria maquina. Meu 
+container e minha maquina consegue acessar a mesma rede. Minha maquina pode acessar uma porta
+direta no container sem que eu precise EXPOR a porta.)
+
+3. overlay (não muito comum. A sacada é que as vezes temos varios dockers em maquinas diferentes,
+e precisamos nos comunicar parecendo que estamos na mesma rede. Então cria uma rede overlay.
+Existe um serviço no docker chamado docker swarm. Ele cria como se fosse um cluster de varios docker
+rodando pra mim pra conseguir escalar rodando o docker. As vezes eu preciso de um container que precisa
+aguentar um monte de acesso, entao voce bota varias maquinas rodando docker, coloca eles em swarm mode,
+e assim consegue escalar. Pra um container falar com outro em maquinas diferentes, precisam estar em
+overlay network.)
+
+4. maclan 
+
+5. none

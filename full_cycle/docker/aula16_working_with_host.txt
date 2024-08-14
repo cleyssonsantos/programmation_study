@@ -1,0 +1,4 @@
+docker run --rm -d --name nginx --network host nginx
+
+Quando eu acessar meu localhost, ja deveria funcionar na porta 80, porque ele juntou a rede do docker HOST com
+a do container.

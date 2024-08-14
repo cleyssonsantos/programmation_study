@@ -1,0 +1,190 @@
+docker network 
+
+docker network ls
+
+```
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula13_publish_image_in_Dockerhub$ docker network ls
+NETWORK ID     NAME                     DRIVER    SCOPE
+b04dddf677d4   api-jovian-mvp_default   bridge    local
+23a5f010b220   bridge                   bridge    local
+3116591b63fe   host                     host      local
+f0f40f518ef9   none                     null      local
+a9732647bbf8   poligono                 bridge    local
+e76610263f1c   system-police_default    bridge    local
+```
+
+docker network prune -> mata todas as networks sem uso
+
+docker run -d -it --name ubuntu1 bash
+docker run -d -it --name ubuntu2 bash
+
+``` 
+docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES
+e6ccff4ebef5   bash      "docker-entrypoint.s…"   9 seconds ago    Up 8 seconds              ubuntu2
+01426f2c2950   bash      "docker-entrypoint.s…"   22 seconds ago   Up 21 seconds             ubuntu1
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula13_publish_image_in_Dockerhub$ 
+```
+=============================================================================
+docker network inspect bridge 
+
+```
+docker network inspect bridge
+[
+    {
+        "Name": "bridge",
+        "Id": "23a5f010b22083e555feea2386c39081b88317554630d642f6a945ba7075d75e",
+        "Created": "2024-08-14T08:22:59.734874009-03:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "01426f2c2950ec243661c9bf65fc4fe83cffd4b245b93ccfe3e2e76f758924dc": {
+                "Name": "ubuntu1",
+                "EndpointID": "8057c1437139187b90febf1d578bd19ae8c1447392cd5189c4e204a301f004e0",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            },
+            "e6ccff4ebef59276e8884d3c584f161c39c202bec24482394099b02f7b0fc17b": {
+                "Name": "ubuntu2",
+                "EndpointID": "9b3bf7f7f459e92dd075dcc7056b1ad0442296c4ac3eeba019841c7662205ad7",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+```
+
+
+
+
+docker attach ubuntu1
+```
+docker attach ubuntu1
+bash-5.2# ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    
+sbin   srv    sys    tmp    usr    var
+bash-5.2#
+```
+
+bash-5.2# ip addr show      -> COMANDO EXECUTADO
+RESULTADO DO COMANDO 
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+32: eth0@if33: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+bash-5.2# 
+
+IP da minha maquina inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+
+
+O ip da outra maquina ubuntu2, o final é 3, veja que eu consigo pingar a rede do outro container pelo container
+atual:
+
+bash-5.2# ping 172.17.0.3
+PING 172.17.0.3 (172.17.0.3): 56 data bytes
+64 bytes from 172.17.0.3: seq=0 ttl=64 time=0.155 ms
+64 bytes from 172.17.0.3: seq=1 ttl=64 time=0.138 ms
+64 bytes from 172.17.0.3: seq=2 ttl=64 time=0.139 ms
+64 bytes from 172.17.0.3: seq=3 ttl=64 time=0.182 ms
+64 bytes from 172.17.0.3: seq=4 ttl=64 time=0.108 ms
+
+Os 2 containers estão na mesma rede.
+
+======================================================================
+Quando roda por padrão na network bridge, ele não faz a resolução de nome:
+
+bash-5.2# ping ubuntu2
+ping: bad address 'ubuntu2'
+
+
+Vou criar uma nova rede:
+docker network create --driver bridge minharede
+
+```
+docker network ls
+NETWORK ID     NAME                     DRIVER    SCOPE
+45c64436347d   minharede                bridge    local```
+
+docker run -dit --name ubuntu1 --network minharede bash
+30f48eb845b2c79e2bf9c2c8b9dc2b32cff2c10f5f86e65e41737048079fa5dd
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula13_publish_image_in_Dockerhub$ docker run -dit --name ubuntu2 --network minharede bash
+4cc7d51111037c513e869dd6e30b86c375ed17d8e9634c70304b914cc2484d16
+
+
+Agora eu quero entrar em um desses caras:
+docker exec -it ubuntu1 bash
+
+E agora eu consigo pingar no ubuntu1, a rede do ubuntu2:
+
+bash-5.2# ping ubuntu2
+PING ubuntu2 (172.21.0.3): 56 data bytes
+64 bytes from 172.21.0.3: seq=0 ttl=64 time=0.134 ms
+64 bytes from 172.21.0.3: seq=1 ttl=64 time=0.147 ms
+64 bytes from 172.21.0.3: seq=2 ttl=64 time=0.204 ms
+64 bytes from 172.21.0.3: seq=3 ttl=64 time=0.143 ms
+
+
+
+Agora eu vou criar um ubuntu3, mas fora da minha network:
+docker run -dit --name ubuntu3 bash
+a25205a9448b0925af6af5b808508c8a2631afb8bb92dc302bfcbebfcee304dc
+kronus@kronus:~/Documents/programmation_study/full_cycle/docker/aula13_publish_image_in_Dockerhub$ docker exec -it ubuntu3 bash
+
+bash-5.2# ping ubuntu2
+ping: bad address 'ubuntu2'
+bash-5.2# ping ubuntu1
+ping: bad address 'ubuntu1'
+
+Isso acontece porque eu to fora da minha network criada, e sim na padrão bridge.
+Mas posso conectar um container na minha network:
+
+docker network connect minharede ubuntu3
+
+E agora sim ele está na mesma rede, então vai pingar pela resolução de nome, tranquilamente:
+
+docker exec -it ubuntu3 bash
+bash-5.2# ping ubuntu2
+PING ubuntu2 (172.21.0.3): 56 data bytes
+64 bytes from 172.21.0.3: seq=0 ttl=64 time=0.180 ms
+64 bytes from 172.21.0.3: seq=1 ttl=64 time=0.133 ms
+64 bytes from 172.21.0.3: seq=2 ttl=64 time=0.128 ms
+64 bytes from 172.21.0.3: seq=3 ttl=64 time=0.198 ms
+64 bytes from 172.21.0.3: seq=4 ttl=64 time=0.158 ms
+64 bytes from 172.21.0.3: seq=5 ttl=64 time=0.139 ms
+

@@ -1,0 +1,13 @@
+Como meu container acessa minha maquina? Vamos supor que eu tenha um servidor PHP servindo na porta 8000 um html.
+
+docker run --rm -it --name ubuntu ubuntu bash
+
+Dentro do container:
+apt-get update
+apt-get install curl -y
+
+
+(Primeira coisa a ser descartada é meu localhost, porque é do container)
+curl http://host.docker.internal:8000
+
+Assim eu consigo acessar minha maquina com o servidor, direto do meu container.
