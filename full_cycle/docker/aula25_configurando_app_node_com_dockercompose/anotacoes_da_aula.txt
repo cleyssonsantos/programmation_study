@@ -1,0 +1,105 @@
+Eu quero agora conseguir adicionar coisas pelo node e inserir no banco de dados. Tem alguns pontos
+a ser considerado.
+
+    volumes:
+      - ./node:/usr/src/app
+
+Essa linha acima garante que tudo que eu mudar no meu repositorio, vai ser alterado no container, sem
+precisar ter o node instalado na minha maquina.
+
+
+
+
+
+Pra isso, eu preciso entrar no container do mysql, e criar a tabela na mão:
+
+```
+bash-4.2# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.44 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| nodedb             |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use nodedb;
+Database changed
+mysql> create table people(id it not null auto_increment, name varchar(255), primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'it not null auto_increment, name varchar(255), primary key(id))' at line 1
+mysql> create table people(id int not null auto_increment, name varchar(255), primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc people;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(255) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+```
+
+No meu node, eu preciso instalar o mysql pro node rodar:
+npm install mysql --save
+
+Criei a conexão no meu index.js:
+
+```
+const config = {
+    host: 'db',
+    user: 'root',
+    password: 'root',
+    database: 'nodedb'
+};
+const mysql = require('mysql');
+const connection = mysql.createConnection(config);
+
+const sql = `INSERT INTO people(name) values('Cleysson')`
+connection.query(sql);
+connection.end();
+
+```
+
+E agora vou rodar o index.js dentro do container com o comando:
+node index.js
+
+E se tudo deu certo, o registro deve estar no banco de dados, veja:
+
+```
+mysql> select * from people;
++----+----------+
+| id | name     |
++----+----------+
+|  1 | Cleysson |
++----+----------+
+1 row in set (0.00 sec)
+
+mysql>
+```
+
+************************************************************
+Olha que interessante, nos temos um ambiente de desenvolvimento cujo temos um banco de dados onde os
+dados não são perdidos porque o volume está compartilhado, onde conseguimos programar no visual studio,
+mas executar os comandos dentro do container ,e fazer com que nosso container consiga se comunicar com outro
+container (nesse caso o mysql) pra gravar o dado no banco de dados. :D
+
