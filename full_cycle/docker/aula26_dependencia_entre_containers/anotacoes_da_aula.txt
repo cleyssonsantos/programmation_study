@@ -1,0 +1,72 @@
+Nem tudo com docker é um mar de rosas, as vezes você tem dependencia entre containers, ex:
+As vezes só pode iniciar o container node quando o mysql estiver de pé. Se subirmos os 2 juntos ao
+mesmo tempo, o MySQL demora pra botar, e se o node tentar se comunicar diretamente com o MySQL ele da pau,
+pode gerar erro e as vezes até matar o container.
+
+
+Como fazer a dependencia de container clara um do outro, e um esperar o outro ficar pronto?
+
+``` 
+    depends_on:
+      - db
+```
+Normalmente esse cara na versão 2 do composer, servia pra fazer um container esperar o outro 100% pronto.
+Mas isso não rola mais na versão 3.
+
+Isso vai fazer o seguinte pro docker compose: Sobe primeiro o db, e depois o app. Mas não significa que 
+o app vai esperar o MySQL ficar pronto. 
+
+Então como esperar o mysql ficar pronto?
+https://github.com/jwilder/dockerize
+
+
+Colocar isso no Dockerfile de quem precisa aguardar, nesse exemplo o Node.
+```
+ENV DOCKERIZE_VERSION v0.8.0
+
+RUN apt-get update \
+    && apt-get install -y wget \
+    && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
+    && apt-get autoremove -yqq --purge wget && rm -rf /var/lib/apt/lists/*
+```
+
+MAAAAAAAAAS se eu rodar apenas isso, ele vai quebrar porque os repositorios do Debian 9 foram
+movidos para os repositorios de arquivos antigos. Significa que os links padrão que usamos no container
+não é mais válido, e pra isso eu tive que pesquisar e rodar esses comandos antes do dockerize:
+
+```
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list
+```
+
+Após o Dockerfile do node configurado, eu coloco no entrypoint do docker-compose, do serviço do node 
+o nosso dockerize primeiro, e depois o entrypoint sh padrão da imagem, assim quando o dockerize liberar,
+ele chama o docker-entrypoint.sh:
+
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+
+=============================================================
+[+] Running 3/3
+ ✔ Network aula26_dependencia_entre_containers_node-network  Created                                      0.0s 
+ ✔ Container db                                              Started                                      0.2s 
+ ✔ Container app                                             Started                                      0.4s 
+
+ O banco de dados sobe primeiro por conta do depends_on.
+
+
+ Olha só nos logs do nosso app:
+
+ ``` 
+ kronus@kronus:~/Documents/programmation_study$ docker logs app
+2024/08/18 14:55:25 Waiting for: tcp://db:3306
+2024/08/18 14:55:25 Problem with dial: dial tcp 172.31.0.2:3306: connect: connection refused. Sleeping 1s
+2024/08/18 14:55:26 Connected to tcp://db:3306
+Welcome to Node.js v15.14.0.
+Type ".help" for more information.
+```
+
+Ele esperou na linha 61 e deu problema no 62, até que na linha 63 ele conectou e liberou.
+
+========================================================
+
+Além do dockerize, temos o wait-for-it também, caso precise. Ambos com papeis semelhantes.
