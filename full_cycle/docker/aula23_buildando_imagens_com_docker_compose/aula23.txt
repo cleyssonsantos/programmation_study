@@ -1,0 +1,18 @@
+No dia a dia nao vamos fixar a imagem no docker compose, e sim usar uma imagem do Docker Hub.
+
+```
+services:
+  laravel:
+    build:
+      context: ./laravel
+      dockerfile: Dockerfile.prod
+    image: cleyssonsantosestudo/laravel:prod
+``` 
+
+Isso aqui faz com que olhe no build, vai gerar o build do dockerfile com o nome da image. Se
+eu nao colocar o nome da imagem, ele vai gerar com outro nome interno dele e ponto.
+
+docker compose ps 
+
+docker compose up -d --build   -> Vai rebuildar a imagem, com tudo novo alterado nela se for o caso.
+
