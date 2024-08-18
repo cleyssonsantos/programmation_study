@@ -1,0 +1,20 @@
+Aula Otimização utilizando Multistage building
+
+Quanto menor uma imagem for em produção melhor, melhor pra subir, melhor pra baixar a imagem, e menos
+chance de ter um monte de coisa pra ter risco de vulnerabilidade de segurança.
+
+Uma imagem muito comum de usarmos são imagens baseadas no ALPINE linux, que é bem pequeno e enxuto, mas
+da conta do recado.
+
+Nosso objetivo nessa aula é gerarmos uma imagem pra PRODUÇÃO do nosso laravel feito na aula 18, 
+essa imagem em produção terá 2 pontos importantes:
+
+1. NGINX ficará na frente como server de proxy reverso (toda req baterá no nginx e o nginx chamará 
+outro container nosso PHP, executar o PHP, que vai retornar ao nginx, e o nginx retorna para o user
+final.)
+
+2. PHP rodará em modo fast cgi (nginx consegue se conectar com o php, mandar as requisições tcp e 
+retornar o resulto)
+
+
+Além disso vms usar o alpine linux pra reduzir o tamanho da imagem.
