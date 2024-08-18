@@ -1,0 +1,32 @@
+Existe um detalhe no caso do MySQL especificamente, quando trabalhando,
+quando ele for dar o  boot, existe um comando que precisa ser rodado se nao
+da ruim:
+
+```
+services:
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+```
+
+Isso significa que caso o container caia, ele restarte pra gente.
+```
+restart: always
+```
+
+tty: true   -> Se precisar entrar no nosso sistema e digitar as coisas la de forma
+interativa, eu preciso habilitar o tty simulado aqui
+
+
+Isso significa que tudo que for salvo na pasta /var/lib/mysql, será enviado pra
+pasta ./mysql, assim se o container morrer, os dados nao serão perdidos.
+```
+    volumes:
+      - ./mysql:/var/lib/mysql
+``` 
+
+
+============================================================================
+Nosso dockercompose.yaml da forma que está, garante que ao subir a aplicação MySQL, ele salve todos os
+dados na minha pasta ./mysql, assim eu garanto que terei os dados do banco de dados salvo sempre que
+matar e subir um novo container.
