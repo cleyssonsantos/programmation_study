@@ -1,0 +1,41 @@
+FROM php:7.4-cli AS builder
+
+WORKDIR /var/www
+
+RUN apt-get update && \
+    apt-get install libzip-dev -y && \
+    docker-php-ext-install zip
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');"
+
+RUN php composer.phar create-project laravel/laravel laravel
+
+# Ao invés de acabar a imagem aqui, começamos um novo processo
+FROM php:7.4-fpm-alpine
+# normalmente dentro da pasta abaixo, temos a pasta html, entao vms remover
+WORKDIR /var/www
+RUN rm -rf /var/www/html
+# Eu preciso pegar o projeto gerado na linha 13, e colocar nesse build dal inha 16
+# 1. Vamos renomear o build da linha 1 pra ficar mais facil de trabalhar
+# 2. Copiar todo conteudo do laravel pra nosso build agora
+
+# Significa do builder vou buscar a pasta /var/www/laravel e copiar para o "." que é o workdir line 18
+COPY --from=builder /var/www/laravel .
+
+# Criando um link simbólico (que só funciona no linux ou mac) que ao acessar a pasta public, leva para 
+# a pasta html
+RUN ln -s public html
+# Dei permissao tanto pro meu user www-data, e também pro grupo www-data ser dono do conteudo da pasta
+# /var/www (Não é necessariamente permissão, e sim troca de dono do grupo)
+RUN chown -R www-data:www-data /var/www
+
+
+EXPOSE 9000
+# Esse comando vai executar o php
+CMD [ "php-fpm" ]
+
+# Pra testar essa imagem:
+# 1. Gera o build da imagem: docker build -t cleyssonsantosestudo/laravel:prod laravel -f laravel/Dockerfile.prod
+# 2. Quero ver se gerou mesmo, então vou rodar: docker images | grep laravel    (Fica facil ver todas iamgens que tem o nome laravel)

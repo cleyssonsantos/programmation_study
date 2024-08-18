@@ -1,0 +1,16 @@
+FROM nginx:1.15.0-alpine
+
+# Remover a configuração padrão que o nginx faz na hora de subir
+RUN rm /etc/nginx/conf.d/default.conf
+# Subindo meu file de conf do nginx
+COPY nginx.conf /etc/nginx/conf.d
+# Quando acessar qualquer endereco do nginx, o arquivo index.php tem que existir no nginx, nem que ele faça nada
+# porque quando esse file for chamado, o nginx vai chamar nosso php no outro container
+# se nao existir, vai retornar 404 pela config do nosso nginx.conf
+RUN mkdir /var/www/html -p && touch /var/www/html/index.php
+
+# Pra testar tudo:
+# 1. Preciso criar uma network pra deixar os caras na mesma rede: docker network list ; docker network create laranet
+# 2. docker run -d --network laranet --name laravel cleyssonsantosestudo/laravel:prod
+# 2.5 Opcional -> Se for necessario gerar a imagem do nginx novamente: docker build -t cleyssonsantosestudo/nginx:prod . -f Dockerfile.prod
+# 3. Vamos fazer o nginx trabalhar: docker run -d --network laranet --name nginx -p 8080:80 cleyssonsantosestudo/nginx:prod
