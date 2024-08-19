@@ -1,0 +1,17 @@
+Documentação: https://semver.org/lang/pt-BR/
+
+2.1.4
+
+2 - MAJOR - API Publica
+1 - MINOR - Adicionado funcionalidade, mas compatível com a API
+4 - PATCH - Bugs, ajustes
+
+
+No começo:
+MAJOR = 0 - API Instável. Pode mudar a qualquer momento
+
+A partir do momento da versão 1.0.0 +, a pessoa tem certeza que terá compatibilidade, a versão é estável.
+
+
+Podemos fazer mudanças também como ALPHA:
+1.0.0-alpha / 1.0.0-beta / 1.0.0-rc0 (release candidate)
