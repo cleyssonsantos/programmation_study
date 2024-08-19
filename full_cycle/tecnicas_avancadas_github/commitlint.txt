@@ -1,0 +1,4 @@
+https://commitlint.js.org/
+
+Precisa do node pra instalar.
+Só seguir o tutorial.
