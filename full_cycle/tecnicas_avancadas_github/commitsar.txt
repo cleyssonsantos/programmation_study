@@ -1,0 +1,15 @@
+https://commitsar.aevea.ee/
+
+https://commitsar.aevea.ee/usage/docker/
+
+
+O comando é esse:
+docker run --rm --name="commitsar" -w /src -v "$(pwd)":/src aevea/commitsar ./path-to-repo
+
+Mas esse exemplo acima da documentação tem pegadinha, porque no final precisa passar o binário do commitsar, e depois o seu
+repositorio, ficando assim o exemplo:
+docker run --rm --name="commitsar" -w /src -v "$(pwd)":/src aevea/commitsar commitsar ./path-to-repo
+
+Exemplo:
+docker run --rm --name="commitsar" -w /src -v "$(pwd)":/src aevea/commitsar commitsar .    -> O ponto final é para verificar todos commits
+do repositorio atual, que deve ter um repo git.
