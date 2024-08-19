@@ -1,0 +1,11 @@
+Plugin / Ferramenta pra commit que nao usa o VsCode, mas sim no terminal:
+
+https://github.com/commitizen/cz-cli
+
+npm install -g commitizen
+
+
+
+Preciso iniciar meu repositorio com commitizen init cz-conventional-changelog --save-dev --save-exact
+
+Pra usar um: git cz    já basta, ele vai te guiando.
