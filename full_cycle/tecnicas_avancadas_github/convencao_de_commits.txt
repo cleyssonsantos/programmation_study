@@ -1,0 +1,18 @@
+Documentação: https://www.conventionalcommits.org/pt-br/v1.0.0/
+
+Toda vez que for escrever algo, será de forma IMPERATIVA, exemplo:
+
+Jeito errado:
+git commit -m "feat: Adicionando funcao oi"
+
+Jeito certo:
+git commit -m "feat: Adiciona funcao oi"
+
+
+Pra não ter erro, basta eu pensar assim:
+"O que esse commit faz?"
+"Esse commit ........... e adiciona o corpo da mensagem"
+
+
+Não faz sentido falar: Esse commit adicionando funcao oi.
+Faz sentido falar: Esse commit adiciona funcao oi.
